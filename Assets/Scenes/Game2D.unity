@@ -3089,6 +3089,11 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.55}
   serializedVersion: 2
   m_Radius: 1.19
+--- !u!50 &1848354524 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 5310495114553569189, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
+  m_PrefabInstance: {fileID: 5310495115188504947}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1849197100
 GameObject:
   m_ObjectHideFlags: 0
@@ -3609,6 +3614,30 @@ PrefabInstance:
     - target: {fileID: 5310495114553569185, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 5310495114553569188, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 1848354524}
+    - target: {fileID: 5310495114553569188, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
+      propertyPath: noInertia
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5310495114553569188, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
+      propertyPath: maxVelocity.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5310495114553569188, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
+      propertyPath: maxVelocity.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5310495114553569188, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
+      propertyPath: movementForce
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5310495114553569189, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
+      propertyPath: m_LinearDrag
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5310495114553569189, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
       propertyPath: m_Constraints

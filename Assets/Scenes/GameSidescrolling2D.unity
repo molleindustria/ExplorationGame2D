@@ -2459,6 +2459,11 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1.6, y: 2.57}
   m_Direction: 0
+--- !u!50 &1848354525 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 5310495114553569189, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
+  m_PrefabInstance: {fileID: 5310495115188504947}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2000904793
 GameObject:
   m_ObjectHideFlags: 0
@@ -2990,24 +2995,48 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5310495114553569188, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
+      propertyPath: rb
+      value: 
+      objectReference: {fileID: 1848354525}
+    - target: {fileID: 5310495114553569188, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
       propertyPath: jumpForce
-      value: 60
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5310495114553569188, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
+      propertyPath: noInertia
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5310495114553569188, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
       propertyPath: airGravity
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5310495114553569188, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
+      propertyPath: isGrounded
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5310495114553569188, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
+      propertyPath: fallGravity
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5310495114553569188, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
       propertyPath: jumpGravity
-      value: 1.2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5310495114553569188, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
       propertyPath: twoDirection
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5310495114553569188, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
+      propertyPath: maxVelocity.x
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5310495114553569188, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
+      propertyPath: maxVelocity.y
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5310495114553569188, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
       propertyPath: movementForce
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5310495114553569188, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
       propertyPath: GroundFilter.maxNormalAngle
@@ -3019,7 +3048,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5310495114553569189, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
       propertyPath: m_LinearDrag
-      value: 8
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5310495114553569189, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
       propertyPath: m_Constraints
@@ -3031,7 +3060,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5310495114553569189, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
       propertyPath: m_GravityScale
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5310495114553569190, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}
       propertyPath: m_RootOrder

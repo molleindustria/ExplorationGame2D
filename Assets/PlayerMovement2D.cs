@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class PlayerMovement2D : MonoBehaviour
 {
-    [Tooltip("Full speed")]
+    [Tooltip("How fast it accelerates")]
     public float movementForce = 1f;
+
+    [Tooltip("Limit the velocity")]
+    public Vector2 maxVelocity = new Vector2(10, 10);
 
     [Tooltip("Prevent diagonal movements")]
     public bool fourDirection = false;
@@ -18,6 +21,9 @@ public class PlayerMovement2D : MonoBehaviour
 
     [Tooltip("Set true to reach full speed instantly")]
     public bool analogSpeed = true;
+
+    [Tooltip("Zero the velocity when direction is unpressed")]
+    public bool noInertia = false;
 
     [Tooltip("Sprint speed")]
     public float sprintForce = 2f;
@@ -41,15 +47,17 @@ public class PlayerMovement2D : MonoBehaviour
     public float jumpWait = 0.5f;
     private float jumpTimer = 0;
 
-    [Tooltip("Extra gravity when twoDirection not touching ground to reduce float")]
-    public float airGravity = 0;
+    [Tooltip("Gravity scale when moving up")]
+    public float jumpGravity = 0;
+    [Tooltip("Gravity scale when falling (tune for less floaty movement)")]
+    public float fallGravity = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         //add a reference to the controller component at the beginning
-        if(rb == null)
-           rb = GetComponent<Rigidbody2D>();
+        if (rb == null)
+            rb = GetComponent<Rigidbody2D>();
 
     }
 
@@ -59,7 +67,7 @@ public class PlayerMovement2D : MonoBehaviour
 
         if (!frozen)
         {
-            
+
 
             float targetForce = movementForce;
 
@@ -68,8 +76,8 @@ public class PlayerMovement2D : MonoBehaviour
             {
                 targetForce = sprintForce;
             }
-            
-            
+
+
             //create a 2D vector with the movement input (analog stick, arrows, or WASD) 
             movementInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
@@ -103,6 +111,13 @@ public class PlayerMovement2D : MonoBehaviour
 
             }
 
+            //to limit movement to 2 directions simply zero the vertical component
+            if (twoDirection)
+            {
+                movementInput = new Vector2(movementInput.x, 0);
+
+            }
+
             //jump logic only if two direction and jump is set
             if (twoDirection && jumpForce > 0)
             {
@@ -111,42 +126,54 @@ public class PlayerMovement2D : MonoBehaviour
                 //is touching ground?
                 isGrounded = rb.IsTouching(GroundFilter);
 
-                if (!isGrounded)
-                {
-                    rb.AddForce(new Vector2(0, -airGravity), ForceMode2D.Impulse);
-                }
 
                 //jump if active
-                if ((Input.GetButtonDown("Fire2") || Input.GetAxisRaw("Vertical")>0) && isGrounded && jumpTimer<0)
+                if ((Input.GetButtonDown("Fire2") || Input.GetAxisRaw("Vertical") > 0) && isGrounded && jumpTimer < 0)
                 {
                     jumpTimer = jumpWait;
 
                     rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 }
 
+                if (rb.velocity.y > 0)
+                    rb.gravityScale = jumpGravity;
+                else
+                    rb.gravityScale = fallGravity;
+
                 //zero the y
                 movementInput = new Vector2(movementInput.x, 0);
             }
 
-            //instant stop if not analog speed and x movement
-            if(twoDirection && !analogSpeed)
+            //force zero velocity to stop immediately
+            if (noInertia)
             {
-                if (movementInput.x == 0)
-                    rb.velocity = new Vector2(0, rb.velocity.y);
-            }
+                Vector2 newVelocity = rb.velocity;
 
+                //left right not pressed zero the horizontal velocity
+                if (Input.GetAxisRaw("Horizontal") == 0)
+                    newVelocity.x = 0;
+
+                //up down not pressed zero the vertical velocity (unless two direction)
+                if (Input.GetAxisRaw("Vertical") == 0 && !twoDirection)
+                    newVelocity.y = 0;
+
+                rb.velocity = newVelocity;
+            }
 
             //combining the left stick input and the vertical velocity
             //absolute coordinates movement: up means +z in the world, left means -x
             Vector2 movement = new Vector2(movementInput.x * targetForce, movementInput.y * targetForce);
 
-            //limit the speed to avoid diagonal movements being slightly faster
-            movement = Vector2.ClampMagnitude(movement, targetForce);
-
             //add movement as force to the rigidbody
             //since it's continuous I have to multiply by delta time to make it frame independent
             rb.AddForce(movement * Time.deltaTime * 1000);
 
+            //limit the velocity in both components separately
+            rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -maxVelocity.x, maxVelocity.x), Mathf.Clamp(rb.velocity.y, -maxVelocity.y, maxVelocity.y));
+
+            //little vector trick to prevent diagonal movement from going faster
+            if (maxVelocity.x == maxVelocity.y)
+                rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxVelocity.x);
         }
     }
 
