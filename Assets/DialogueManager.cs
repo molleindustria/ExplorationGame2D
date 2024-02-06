@@ -222,7 +222,7 @@ public class DialogueManager : MonoBehaviour
 
     }
 
-    void StartDialogue(string id)
+    public void StartDialogue(string id)
     {
         //freeze the controller by sending a message so I don't have to know the specific class
         //what "freezing means" depends on the control system

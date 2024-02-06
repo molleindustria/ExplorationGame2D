@@ -10,9 +10,6 @@ public class PlayerMovement2D : MonoBehaviour
     [Tooltip("Limit the velocity")]
     public Vector2 maxVelocity = new Vector2(10, 10);
 
-    [Tooltip("Prevent diagonal movements")]
-    public bool fourDirection = false;
-
     [Tooltip("Make it into a side scroller")]
     public bool twoDirection = false;
 
@@ -92,22 +89,12 @@ public class PlayerMovement2D : MonoBehaviour
 
             }
 
-            //to limit movement to 4 directions simply zero the smaller component
-            if (fourDirection)
-            {
-                if (Mathf.Abs(movementInput.x) >= Mathf.Abs(movementInput.y))
-                    movementInput = new Vector2(movementInput.x, 0);
-                else
-                    movementInput = new Vector2(0, movementInput.y);
-
-            }
-
-            //to limit movement to 2 directions simply zero the vertical component
+            //two direction zero the vertical component
             if (twoDirection)
             {
                 movementInput = new Vector2(movementInput.x, 0);
-
             }
+            
 
             //jump logic only if two direction and jump is set
             if (twoDirection && jumpForce > 0)
@@ -173,10 +160,35 @@ public class PlayerMovement2D : MonoBehaviour
     public void Freeze()
     {
         frozen = true;
+        rb.velocity = Vector2.zero;
     }
 
     public void UnFreeze()
     {
         frozen = false;
+    }
+
+
+    //example of custom function to toggle the two direction movement on and off
+    //it can be called externally from a TriggerInteraction2D event
+    public void LadderMode(bool ladderOn)
+    {
+        if (ladderOn)
+        {
+            twoDirection = false;
+            rb.gravityScale = 0;
+        }
+        else
+        {
+            twoDirection = true;
+
+            //prevent forward momentum
+            if (!isGrounded)
+            {
+                rb.velocity = Vector2.zero;
+            }
+
+        }
+
     }
 }

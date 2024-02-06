@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using System;
 
 //This script detect a trigger enter and exit and plays an even specified in the inspector
-public class TriggerInteraction : MonoBehaviour
+public class TriggerInteraction2D : MonoBehaviour
 {
     public GameObject player;
 
@@ -24,10 +24,22 @@ public class TriggerInteraction : MonoBehaviour
             player = GameObject.Find("player");
         }
 
+        if (player == null)
+        {
+            //if not set assumes the template setup
+            player = GameObject.Find("Player");
+        }
+
+        if(player == null)
+        {
+            Debug.LogWarning(gameObject.name + " can't find the player to trigger the event, please set it manually");
+        }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
+        print("Enter trigger " + gameObject.name);
+
         if (other.gameObject == player)
         {
             EnterTrigger.Invoke();
@@ -35,8 +47,10 @@ public class TriggerInteraction : MonoBehaviour
 
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D other)
     {
+        print("Exit trigger " + gameObject.name);
+
         if (other.gameObject == player)
         {
             ExitTrigger.Invoke();
