@@ -5,7 +5,11 @@ using UnityEngine.UI;
 
 public class SimpleSpriteAnimation : MonoBehaviour
 {
-    private Transform[] frames;
+    [Tooltip("Add the sprites here in sequence")]
+    public Sprite[] frames;
+
+    [Tooltip("The sprite renderer if not specified looks on this gameobject")]
+    public SpriteRenderer spriteRenderer;
 
     public float FPS = 5;
     public bool loop = true;
@@ -15,30 +19,19 @@ public class SimpleSpriteAnimation : MonoBehaviour
 
     public bool ping = true;
 
-    private void Awake()
-    {
-        timer = 0;
-    }
-
     // Start is called before the first frame update
     void Start()
     {
-        List<Transform> result = new List<Transform>();
+        timer = 0;
 
-        GetComponentsInChildren<Transform>(true, result);
+        if (spriteRenderer == null)
+            spriteRenderer = GetComponent<SpriteRenderer>();
 
+        if (spriteRenderer == null)
+            Debug.LogWarning("Warning: no sprite renderer on " + gameObject.name);
 
-        if (result.Contains(transform))
-            result.Remove(transform);
-
-        frames = result.ToArray();
-
-        HideFrames();
-        if (frames.Length > 0)
-            frames[0].gameObject.SetActive(true);
-        else
-            Debug.LogWarning("There are no frames in this animation, please add children to the object "+gameObject.name);
     }
+
 
     // Update is called once per frame
     void Update()
@@ -59,8 +52,7 @@ public class SimpleSpriteAnimation : MonoBehaviour
 
                 if (frames.Length > 0 && currentFrame <= frames.Length-1)
                 {
-                    HideFrames();
-                    frames[currentFrame].gameObject.SetActive(true);
+                    spriteRenderer.sprite = frames[currentFrame];
                 }
             }
             else
@@ -95,8 +87,7 @@ public class SimpleSpriteAnimation : MonoBehaviour
                 if (frames.Length > 0 && currentFrame <= frames.Length - 1)
                 {
                     currentFrame %= frames.Length;
-                    HideFrames();
-                    frames[currentFrame].gameObject.SetActive(true);
+                    spriteRenderer.sprite = frames[currentFrame];
                 }
             }
 
@@ -105,10 +96,5 @@ public class SimpleSpriteAnimation : MonoBehaviour
         
     }
 
-    public void HideFrames()
-    {
-        foreach (Transform o in frames)
-            o.gameObject.SetActive(false);
-    }
 
 }

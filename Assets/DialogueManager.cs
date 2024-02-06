@@ -87,7 +87,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (player == null)
         {
-            print("Warning: the player object is not assigned, collisions won't work");
+            print("Warning: the player object is not assigned");
         }
 
         LoadDialogues();
@@ -226,7 +226,8 @@ public class DialogueManager : MonoBehaviour
     {
         //freeze the controller by sending a message so I don't have to know the specific class
         //what "freezing means" depends on the control system
-        player.SendMessage("Freeze");
+        if(player != null)
+            player.SendMessage("Freeze", SendMessageOptions.DontRequireReceiver);
 
         //set the story at the knot
         story.ChoosePathString(id);
@@ -309,7 +310,8 @@ public class DialogueManager : MonoBehaviour
         typing = false;
 
         //freeze the controller by sending a message so I don't have to know the specific class
-        player.SendMessage("UnFreeze");
+        if (player != null)
+            player.SendMessage("UnFreeze", SendMessageOptions.DontRequireReceiver);
 
         if (currentInteractable != null)
         {
@@ -479,7 +481,7 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.LogWarning("Warning: Teleport failed. I couldn't find a game object named " + id);
         }
-        else
+        else if(player != null)
         {
             CharacterController cc = player.GetComponent<CharacterController>();
 

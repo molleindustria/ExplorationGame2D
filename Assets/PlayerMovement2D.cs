@@ -25,9 +25,6 @@ public class PlayerMovement2D : MonoBehaviour
     [Tooltip("Zero the velocity when direction is unpressed")]
     public bool noInertia = false;
 
-    [Tooltip("Sprint speed")]
-    public float sprintForce = 2f;
-
     [Tooltip("The component that manages the 2D physics")]
     public Rigidbody2D rb;
 
@@ -70,12 +67,6 @@ public class PlayerMovement2D : MonoBehaviour
 
 
             float targetForce = movementForce;
-
-            //change speed based on sprint input 
-            if (Input.GetButtonDown("Fire3"))
-            {
-                targetForce = sprintForce;
-            }
 
 
             //create a 2D vector with the movement input (analog stick, arrows, or WASD) 
