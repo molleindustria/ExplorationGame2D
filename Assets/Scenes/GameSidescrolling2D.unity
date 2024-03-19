@@ -162,7 +162,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6d12400137df6f3439a42b938d4bb8be, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3067,6 +3067,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1791311140}
   - component: {fileID: 1791311141}
+  - component: {fileID: 1791311142}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3114,6 +3115,20 @@ MonoBehaviour:
   typingAudioSource: {fileID: 0}
   typeSound: []
   inkJSONAsset: {fileID: 4900000, guid: 983957fc1cfee2e4093df0c6884372c4, type: 3}
+--- !u!114 &1791311142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1791311139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a18f0d8a2afcdc478d3e448e08e3fcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quitKey: 27
+  restartKey: 114
 --- !u!1 &1848354514 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5310495114553569185, guid: e92bf087e3e7c5d49ba71fe299da7222, type: 3}

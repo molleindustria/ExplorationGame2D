@@ -130,6 +130,10 @@ public class DialogueManager : MonoBehaviour
 
         story.BindExternalFunction("gameEvent", (string name) => { GameEvent(name); });
 
+        story.BindExternalFunction("callFunction", (string name, string parameter) => { CallFunction(name, parameter); });
+
+        story.BindExternalFunction("playSound", (string fileName) => { PlaySound(fileName); });
+
     }
 
 
@@ -226,7 +230,7 @@ public class DialogueManager : MonoBehaviour
     {
         //freeze the controller by sending a message so I don't have to know the specific class
         //what "freezing means" depends on the control system
-        if(player != null)
+        if (player != null)
             player.SendMessage("Freeze", SendMessageOptions.DontRequireReceiver);
 
         //set the story at the knot
@@ -481,7 +485,7 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.LogWarning("Warning: Teleport failed. I couldn't find a game object named " + id);
         }
-        else if(player != null)
+        else if (player != null)
         {
             CharacterController cc = player.GetComponent<CharacterController>();
 
@@ -524,6 +528,31 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    //plays a one shot sound
+    //for looping sound it's easier to activate and deactivate and object with a looping source
+    public void PlaySound(string fileName)
+    {
+        //sound has to be in Resources and have exactly the same name (minus extension) passed by ink
+        AudioClip clip = Resources.Load(fileName) as AudioClip;
+
+        if (clip == null)
+        {
+            Debug.LogWarning("Warning: I couldn't find any sound file named " + fileName + " in Assets/Resources/");
+
+        }
+        else
+        {
+            //there has to be an audio source component on this object or it will create one from scratch
+            AudioSource source = GetComponent<AudioSource>();
+
+            if (source == null)
+            {
+                source = gameObject.AddComponent<AudioSource>();
+            }
+
+            source.PlayOneShot(clip);
+        }
+    }
 
     //this allows you to call functions from ink
     public void GameEvent(string id)
@@ -537,7 +566,10 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-
+    //same as above but with two parameters
+    public void CallFunction(string functionName, string parameter)
+    {
+        print("Ink calls the game event " + functionName + " with parameter " + parameter);
+    }
 
 }
-

@@ -36,6 +36,22 @@ EXTERNAL teleport(objectName)
 EXTERNAL activate(objectName)
 EXTERNAL deactivate(objectName)
 EXTERNAL gameEvent(eventName)
+EXTERNAL callFunction(functionName, parameter)
+EXTERNAL playSound(soundFile)
+
+//fallback to avoid javascript errors
+=== function teleport(x) ===
+~ return 1
+=== function activate(x) ===
+~ return 1
+=== function deactivate(x) ===
+~ return 1
+=== function gameEvent(x) ===
+~ return 1
+=== function callFunction(x,y) ===
+~ return 1
+=== function playSound(x) ===
+~ return 1
 
 //I like to use allcaps for global variable to distinguish them from knots ids
 VAR KEY = false
@@ -61,7 +77,8 @@ You attempt to pet the cat but it scratches you.
 
 = talk
 You: Hello kitty.
-Cat: Leave me alone capsule.
+~playSound("meow")
+Cat: Leave me alone.
 ->choices
 
 === cube ===
@@ -111,6 +128,7 @@ You need a key to open the door
 
 === key ===
 Picking up the key
+~callFunction("example name","example parameter")
 ~ deactivate("key")
 ~ KEY = true
 ->END
