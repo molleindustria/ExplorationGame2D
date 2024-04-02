@@ -50,6 +50,8 @@ public class DialogueManager : MonoBehaviour
     public TextTyper typer; //the typewriter effect script
     public Transform choicesContainer;
 
+    public bool dialogueOn = false;
+
     //i keep track of the state of the dialogue with an int variable
     private int dialogueState = 0;
 
@@ -228,6 +230,8 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(string id)
     {
+        dialogueOn = true;
+
         //freeze the controller by sending a message so I don't have to know the specific class
         //what "freezing means" depends on the control system
         if (player != null)
@@ -298,6 +302,7 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
+        dialogueOn = false;
         print("Dialogue has ended");
         RemoveChoices();
 
