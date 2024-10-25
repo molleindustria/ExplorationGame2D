@@ -307,7 +307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knotName: cat
   actionText: Interact with cat
-  onlyOnce: 0
+  onlyOnce: 1
 --- !u!61 &43542129
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2525,6 +2525,7 @@ MonoBehaviour:
   buttonPrefab: {fileID: 7642382669532520416, guid: 2d7b691986f70f54da03bfcd30de3ebd, type: 3}
   typer: {fileID: 0}
   choicesContainer: {fileID: 6641638336182908074}
+  dialogueOn: 0
   typingDelay: 0.05
   currentInteractable: {fileID: 0}
   typingAudioSource: {fileID: 0}
