@@ -43,7 +43,8 @@ public class CharacterSpriteAnimation : MonoBehaviour
         if (spriteRenderer == null)
             Debug.LogWarning("Warning: no sprite renderer on " + gameObject.name);
 
-        playerMovement = GameObject.FindObjectOfType<PlayerMovement2D>();
+        playerMovement = GameObject.FindFirstObjectByType<PlayerMovement2D>();
+
 
         if (playerMovement == null)
             Debug.LogWarning("Warning I can't find a PlayerMovement2D in the scene");

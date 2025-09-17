@@ -25,12 +25,12 @@ public class Raycaster2D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        dialogueManager = GameObject.FindObjectOfType<DialogueManager>();
+        dialogueManager = GameObject.FindFirstObjectByType<DialogueManager>();
 
         if (dialogueManager == null)
             Debug.LogWarning("Warning I can't find a dialogue manager in the scene");
 
-        playerMovement = GameObject.FindObjectOfType<PlayerMovement2D>();
+        playerMovement = GameObject.FindFirstObjectByType<PlayerMovement2D>();
 
         if (playerMovement == null)
             Debug.LogWarning("Warning I can't find a PlayerMovement2D in the scene");

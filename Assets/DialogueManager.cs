@@ -508,7 +508,7 @@ public class DialogueManager : MonoBehaviour
 
     public void Activate(string id)
     {
-        Transform[] transforms = GameObject.FindObjectsOfType<Transform>(true);
+        Transform[] transforms = GameObject.FindObjectsByType<Transform>(FindObjectsInactive.Include, FindObjectsSortMode.None);
 
         foreach (Transform t in transforms)
         {
