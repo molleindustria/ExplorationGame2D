@@ -1,5 +1,7 @@
 # ExplorationGame2D
-Template for a story/exploration game in 2D powered by Ink.
+Template for a story/exploration game in 2D powered by Ink. Unity 6 Version.
+
+[Unity 2022 version here](https://github.com/molleindustria/ExplorationGame2D/tree/unity-2022)
 
 ## Video overview
 [![Video overview](https://img.youtube.com/vi/o_6I1FrY6D8/maxresdefault.jpg)](https://www.youtube.com/watch?v=o_6I1FrY6D8)
