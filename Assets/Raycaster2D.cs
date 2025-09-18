@@ -10,7 +10,6 @@ using UnityEngine;
 public class Raycaster2D : MonoBehaviour
 {
     DialogueManager dialogueManager;
-    PlayerMovement2D playerMovement;
 
     [Tooltip("The minimum distance to interact with an interactable")]
     public float interactionDistance = 3f;
@@ -21,6 +20,10 @@ public class Raycaster2D : MonoBehaviour
     //saving the last non zero direction
     private Vector2 lastDirection = Vector2.zero;
 
+    private Rigidbody2D playerRigidbody;
+
+    [Tooltip("If true force the raycast to left or right (side scroller)")]
+    public bool twoDirections = false;
 
     // Start is called before the first frame update
     void Start()
@@ -28,22 +31,35 @@ public class Raycaster2D : MonoBehaviour
         dialogueManager = GameObject.FindFirstObjectByType<DialogueManager>();
 
         if (dialogueManager == null)
-            Debug.LogWarning("Warning I can't find a dialogue manager in the scene");
+            Debug.LogWarning("Warning: I can't find a dialogue manager in the scene");
 
-        playerMovement = GameObject.FindFirstObjectByType<PlayerMovement2D>();
-
-        if (playerMovement == null)
-            Debug.LogWarning("Warning I can't find a PlayerMovement2D in the scene");
-
+        if (playerRigidbody == null)
+            playerRigidbody = GetComponent<Rigidbody2D>();
+        
+        if(playerRigidbody == null)
+            Debug.LogWarning("Warning: I can't find a Rigidbody2D on the player object");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerMovement.movementInput.magnitude > 0.1f)
-            lastDirection = playerMovement.movementInput;
+        //if not moving keep the last direction
+        if (playerRigidbody.linearVelocity.magnitude > 0.1f)
+        {
+            //infer the direction of the player from the rigid body velocity
+            lastDirection = playerRigidbody.linearVelocity.normalized;
 
-        Vector2 start = new Vector2(playerMovement.transform.position.x, playerMovement.transform.position.y) + rayOffset;
+            if (twoDirections)
+            {
+                
+                if (lastDirection.x > 0)
+                    lastDirection = new Vector2(1, 0);
+                else
+                    lastDirection = new Vector2(-1, 0);
+            }
+        }
+
+        Vector2 start = new Vector2(playerRigidbody.transform.position.x, playerRigidbody.transform.position.y) + rayOffset;
         
         // Cast a ray in the direction of the input
         RaycastHit2D[] hits = Physics2D.RaycastAll(start, lastDirection, interactionDistance);
