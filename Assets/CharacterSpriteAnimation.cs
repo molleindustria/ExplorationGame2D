@@ -20,8 +20,8 @@ public class CharacterSpriteAnimation : MonoBehaviour
     [Tooltip("The sprite renderer if not specified looks on this gameobject")]
     public SpriteRenderer spriteRenderer;
 
-    [Tooltip("The character movement script to detect the input")]
-    PlayerMovement2D playerMovement;
+    [Tooltip("The character rigidbody to detect the direction")]
+    public Rigidbody2D rb;
 
     public int currentFrame = 0;
 
@@ -43,11 +43,14 @@ public class CharacterSpriteAnimation : MonoBehaviour
         if (spriteRenderer == null)
             Debug.LogWarning("Warning: no sprite renderer on " + gameObject.name);
 
-        playerMovement = GameObject.FindFirstObjectByType<PlayerMovement2D>();
+        if (rb == null)
+            rb = transform.GetComponent<Rigidbody2D>();
 
+        if (rb == null)
+            rb = transform.parent.GetComponent<Rigidbody2D>();
 
-        if (playerMovement == null)
-            Debug.LogWarning("Warning I can't find a PlayerMovement2D in the scene");
+        if (rb == null)
+            Debug.LogWarning("Warning I can't find rigidbody to infer the direction. Assign manually");
 
         currentSprites = walkingSprites;
     }
@@ -60,9 +63,9 @@ public class CharacterSpriteAnimation : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (playerMovement.movementInput.magnitude > 0.1f)
+        if (rb.linearVelocity.magnitude > 0.1f)
         {
-            lastDirection = playerMovement.movementInput;
+            lastDirection = rb.linearVelocity.normalized;
             currentSprites = walkingSprites;
         }
         else

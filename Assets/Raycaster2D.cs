@@ -43,11 +43,13 @@ public class Raycaster2D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector2 movementInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
         //if not moving keep the last direction
-        if (playerRigidbody.linearVelocity.magnitude > 0.1f)
+        if (movementInput.magnitude > 0.1f)
         {
             //infer the direction of the player from the rigid body velocity
-            lastDirection = playerRigidbody.linearVelocity.normalized;
+            lastDirection = movementInput.normalized;
 
             if (twoDirections)
             {

@@ -310,6 +310,7 @@ MonoBehaviour:
   knotName: cat
   actionText: Interact with cat
   onlyOnce: 0
+  onContact: 0
 --- !u!61 &43542129
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -548,6 +549,7 @@ MonoBehaviour:
   knotName: pillar
   actionText: Interact with pillar
   onlyOnce: 0
+  onContact: 0
 --- !u!61 &57518758
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -708,6 +710,7 @@ MonoBehaviour:
   knotName: key
   actionText: Pick up key
   onlyOnce: 0
+  onContact: 1
 --- !u!58 &249757507
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -965,6 +968,7 @@ MonoBehaviour:
   knotName: exit
   actionText: Exit
   onlyOnce: 0
+  onContact: 0
 --- !u!61 &254744067
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1132,6 +1136,7 @@ MonoBehaviour:
   knotName: cube
   actionText: Interact with cube
   onlyOnce: 1
+  onContact: 0
 --- !u!212 &433692792
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1531,6 +1536,7 @@ MonoBehaviour:
   knotName: portalA
   actionText: Enter Portal
   onlyOnce: 0
+  onContact: 0
 --- !u!4 &684141585
 Transform:
   m_ObjectHideFlags: 0
@@ -1748,6 +1754,7 @@ MonoBehaviour:
   FPS: 5
   flipX: 1
   spriteRenderer: {fileID: 0}
+  rb: {fileID: 0}
   currentFrame: 0
 --- !u!1 &763587838
 GameObject:
@@ -2289,6 +2296,7 @@ MonoBehaviour:
   knotName: portalB
   actionText: Enter Portal
   onlyOnce: 0
+  onContact: 0
 --- !u!4 &994622978
 Transform:
   m_ObjectHideFlags: 0
@@ -2753,6 +2761,7 @@ MonoBehaviour:
   knotName: door
   actionText: Open the door
   onlyOnce: 0
+  onContact: 0
 --- !u!61 &1435094068
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3068,6 +3077,7 @@ MonoBehaviour:
   knotName: pinkToBlue
   actionText: Go to blue
   onlyOnce: 0
+  onContact: 0
 --- !u!212 &1507009079
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3393,6 +3403,7 @@ MonoBehaviour:
   knotName: blueToPink
   actionText: Go to pink
   onlyOnce: 0
+  onContact: 0
 --- !u!212 &1728244893
 SpriteRenderer:
   m_ObjectHideFlags: 0

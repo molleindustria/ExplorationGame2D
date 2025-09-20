@@ -18,6 +18,12 @@ public class Interactable : MonoBehaviour
     [Tooltip("Set to true if you want the interactable to disable itself after the first interaction")]
     public bool onlyOnce = false;
 
+    [Tooltip("Set to true if you want the dialog to start without pressing the interact key")]
+    public bool onContact = false;
+
+    private DialogueManager dialogueManager;
+
+
     void Start()
     {
 
@@ -33,7 +39,32 @@ public class Interactable : MonoBehaviour
             Debug.LogWarning("Warning: the interactable " + gameObject.name + " doesn't have any colliders attached");
         }
 
+        if(onContact)
+        {
+            dialogueManager = GameObject.FindFirstObjectByType<DialogueManager>();
+        }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //if on contact check if it's the player to collide
+        if (onContact && dialogueManager != null)
+           if(collision.gameObject == dialogueManager.player.gameObject)
+                {
+                    dialogueManager.StartDialogue(knotName);
+                }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        //if on contact check if it's the player to collide
+        if (onContact && dialogueManager != null)
+            if (collider.gameObject == dialogueManager.player.gameObject)
+            {
+                dialogueManager.StartDialogue(knotName);
+            }
+    }
+
 
 
 }
